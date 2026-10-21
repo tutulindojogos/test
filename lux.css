@@ -70,3 +70,28 @@ box-shadow:0 8px 10px -6px rgba(25,30,70,.4),inset 0 0 0 1.5px rgba(255,255,255,
 #vscreen .menu .menu-item.active .bi{filter:none}
 .gm{animation-duration:.4s}
 }
+/* v15: hero de games, stats, about, temas */
+.gm-hero{position:relative;display:block;height:118px;margin-bottom:10px;border-radius:16px;overflow:hidden;border:1px solid #fff;box-shadow:0 10px 22px rgba(0,0,0,.28),0 0 22px rgba(255,255,255,.7);animation:lxPop .6s backwards;text-decoration:none;color:#fff;background:#222}
+.gm-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 1.4s}
+.gm-hero:hover img{transform:scale(1.12)}
+.gm-hero div{position:absolute;inset:0;padding:12px 14px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(90deg,rgba(0,0,0,.85),rgba(0,0,0,.05) 75%);font:500 9px "DM Mono",monospace;letter-spacing:.14em}
+.gm-hero small{opacity:.7;font-size:8px}
+.gm-hero b{font:700 21px/1.1 "Cormorant Garamond",serif;letter-spacing:0;margin:3px 0}
+.gm-hero em{font-style:normal;font-weight:700}
+.stats,.pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 10px}
+.pstats{margin:12px 0 0}
+.st{border-radius:12px;padding:8px 4px;text-align:center;background:linear-gradient(145deg,rgba(255,255,255,.8),rgba(255,255,255,.3));border:1px solid #fff;box-shadow:0 4px 10px rgba(0,0,0,.1),inset 0 1px 0 #fff;font:500 7.5px "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;animation:lxPop .5s backwards}
+.st b{display:block;font:700 18px/1.1 "Cormorant Garamond",serif;letter-spacing:0;text-transform:none;margin-bottom:2px}
+.ab-m{display:grid;gap:11px;margin-top:14px}
+.ab-m div{display:grid;grid-template-columns:62px 1fr 28px;align-items:center;gap:9px;font:500 8.5px "DM Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.ab-m i{display:block;height:8px;border-radius:8px;background:rgba(0,0,0,.12);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+.ab-m b{display:block;height:100%;width:var(--v);border-radius:8px;transform-origin:left;background:linear-gradient(90deg,#fff,var(--c1,#b9ccff),#fff,var(--c1,#b9ccff));background-size:200% 100%;box-shadow:0 0 8px var(--c1,#b9ccff);animation:lxBar 1.2s .2s backwards,lxSh 3s linear infinite}
+.thm{display:flex;gap:10px;margin-top:12px}
+.thm i{width:22px;height:22px;border-radius:50%;border:1.5px solid #fff;box-shadow:0 3px 7px rgba(0,0,0,.25);cursor:pointer;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.thm i:hover,.thm i.on{transform:scale(1.28);box-shadow:0 0 0 2px #fff,0 0 12px #fff}
+body[data-th=ice]{--c1:#8fd3ff;--c2:#5b86b8}body[data-th=lilac]{--c1:#e0b8ff;--c2:#8b6cc4}body[data-th=mint]{--c1:#b8ffe0;--c2:#5fae92}
+body[data-th] #vscreen .menu .menu-item::before,body[data-th] #vscreen .menu .menu-item.active::before{background:conic-gradient(#fff,var(--c1),#fff,var(--c1),#fff)}
+body[data-th] #vscreen .menu .menu-item.active{background:radial-gradient(120% 90% at 30% 8%,rgba(255,255,255,.55),rgba(255,255,255,0) 44%),radial-gradient(circle at 50% 112%,var(--c2),#15151d 62%)!important}
+body[data-th] .gm-hero,body[data-th] .gm:hover{box-shadow:0 10px 22px rgba(0,0,0,.28),0 0 22px var(--c1)}
+@keyframes lxSh{to{background-position:-200% 0}}
+body.lite .ab-m b{animation:lxBar 1.2s .2s backwards}

@@ -16,6 +16,7 @@ function render(d){
  const r=(d.recent||[])[0];
  if(d.now){now.innerHTML='<i></i>playing now · <b>'+esc(d.now)+'</b>';now.classList.add('on')}
  else if(r){now.innerHTML='<i style="background:#bbb;box-shadow:none;animation:none"></i>last played · <b>'+esc(r.name)+'</b><em>'+(r.last?ago(r.last):r.hours2w+'h recently')+'</em>';now.classList.add('on')}
+ window.luxPending=d;window.luxGames&&window.luxGames(d);
  if(d.demo)grid.insertAdjacentHTML('afterend','<p class="gm-note">✧ exemplo · conecte sua Steam (veja README) ✧</p>');
 }
 fetch('games.json?'+Date.now()).then(r=>r.ok?r.json():Promise.reject()).catch(()=>DEMO).then(render);
@@ -37,4 +38,27 @@ const chk=()=>m.classList.toggle('on',!home.classList.contains('hidden')&&home.s
 home.addEventListener('scroll',chk,{passive:true});setInterval(chk,500);
 m.querySelector('button').onclick=()=>home.scrollBy({top:home.clientHeight*.7,behavior:'smooth'});
 new MutationObserver(()=>{const a=menu.querySelector('.active');if(a&&menu.scrollWidth>menu.clientWidth)menu.scrollTo({left:a.offsetLeft-(menu.clientWidth-a.offsetWidth)/2,behavior:'smooth'});home.scrollTo({top:0,behavior:'smooth'})}).observe(menu,{subtree:true,attributes:true,attributeFilter:['class']});
+})();
+/* v15 */
+(()=>{
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ago=t=>{const m=(Date.now()/1e3-t)/60,h=m/60,d=h/24;return m<60?Math.max(1,Math.round(m))+'min ago':h<24?Math.round(h)+'h ago':d<14?Math.round(d)+'d ago':Math.round(d/7)+'w ago'};
+const cu=(e,n,d=1300)=>{const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/d);e.textContent=Math.round(n*(1-Math.pow(1-k,3))).toLocaleString('pt-BR');if(k<1)requestAnimationFrame(f)})(t0)};
+const run=()=>document.querySelectorAll('[data-n]').forEach(e=>cu(e,+e.dataset.n));
+/* chips do perfil + temas */
+$('#tagRow').insertAdjacentHTML('afterend','<div class="pstats"><div class="st"><b id="psG" data-n="0">–</b>games</div><div class="st"><b id="psH" data-n="0">–</b>hours</div><div class="st"><b id="psV">–</b>visits</div></div><div class="thm" id="thm"></div>');
+const vb=$('#vis b'),pv=$('#psV');
+new MutationObserver(()=>{pv.textContent=(+vb.textContent.replace(/\D/g,'')||0).toLocaleString('pt-BR')}).observe(vb,{childList:true,characterData:true,subtree:true});
+const T={pearl:['#fff','#c9cde8'],ice:['#8fd3ff','#5b86b8'],lilac:['#e0b8ff','#8b6cc4'],mint:['#b8ffe0','#5fae92']},th=$('#thm');
+th.innerHTML=Object.keys(T).map(k=>'<i data-t="'+k+'" title="'+k+'" style="background:radial-gradient(circle at 35% 30%,#fff,'+T[k][0]+' 55%,'+T[k][1]+')"></i>').join('');
+const set=k=>{k==='pearl'?document.body.removeAttribute('data-th'):document.body.dataset.th=k;th.querySelectorAll('i').forEach(i=>i.classList.toggle('on',i.dataset.t===k));try{localStorage.setItem('lxt',k)}catch(e){}};
+th.onclick=e=>{const k=e.target.dataset&&e.target.dataset.t;if(k)set(k)};
+let s='pearl';try{s=localStorage.getItem('lxt')||s}catch(e){}set(T[s]?s:'pearl');
+/* hero de games + stats */
+window.luxGames=d=>{const g=d.games||[];if(!g.length)return;const t=g[0],sum=g.reduce((a,x)=>a+x.hours,0),r=(d.recent||[])[0],gr=$('#gmGrid'),n=d.total||g.length;
+ gr.firstElementChild&&gr.firstElementChild.remove();
+ gr.insertAdjacentHTML('beforebegin','<a class="gm-hero" href="https://store.steampowered.com/app/'+t.appid+'" target="_blank" rel="noopener"><img alt="" decoding="async" src="https://cdn.cloudflare.steamstatic.com/steam/apps/'+t.appid+'/header.jpg"><div><small>✦ MOST PLAYED</small><b>'+esc(t.name)+'</b><span><em data-n="'+t.hours+'">0</em>h on record</span></div></a><div class="stats"><div class="st"><b data-n="'+n+'">0</b>games</div><div class="st"><b data-n="'+sum+'">0</b>top hours</div><div class="st"><b>'+(r&&r.last?ago(r.last):'—')+'</b>last played</div></div>');
+ [['psG',n],['psH',sum]].forEach(a=>{const e=$('#'+a[0]);e.dataset.n=a[1]});
+ run();new MutationObserver(()=>$('#games').classList.contains('active-panel')&&run()).observe($('#games'),{attributes:true,attributeFilter:['class']})};
+if(window.luxPending)window.luxGames(window.luxPending);
 })();
