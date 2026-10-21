@@ -11,7 +11,7 @@ const IMG=id=>'https://cdn.cloudflare.steamstatic.com/steam/apps/'+id+'/';
 function render(d){
  const g=(d.games||[]).slice(0,12),mx=Math.max(1,...g.map(x=>x.hours)),grid=$('#gmGrid'),now=$('#gmNow');
  $('#gmCount').textContent=(d.total||g.length)+' games';
- grid.innerHTML=g.map((x,i)=>'<a class="gm" style="--n:'+i+'" href="https://store.steampowered.com/app/'+x.appid+'" target="_blank" rel="noopener"><img loading="lazy" alt="" src="'+IMG(x.appid)+'library_600x900.jpg"><span class="gi"><b>'+esc(x.name)+'</b>'+x.hours+'h<span class="bar" style="--w:'+Math.max(6,x.hours/mx*100)+'%"><i></i></span></span></a>').join('');
+ grid.innerHTML=g.map((x,i)=>'<a class="gm" style="--n:'+i+'" href="https://store.steampowered.com/app/'+x.appid+'" target="_blank" rel="noopener"><img loading="lazy" decoding="async" alt="" src="'+IMG(x.appid)+'library_600x900.jpg"><span class="gi"><b>'+esc(x.name)+'</b>'+x.hours+'h<span class="bar" style="--w:'+Math.max(6,x.hours/mx*100)+'%"><i></i></span></span></a>').join('');
  grid.addEventListener('error',e=>{const im=e.target;if(im.src.includes('library_600x900'))im.src=IMG(im.closest('.gm').href.split('/app/')[1])+'header.jpg';else im.style.display='none'},true);
  const r=(d.recent||[])[0];
  if(d.now){now.innerHTML='<i></i>playing now · <b>'+esc(d.now)+'</b>';now.classList.add('on')}
@@ -30,3 +30,11 @@ fetch(base+(seen?'':'/up')).then(r=>r.json()).then(j=>{const n=j.count??j.value?
 /* ícones das bolhas (SVG) */
 (()=>{const P={profile:'<circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6"/>',social:'<circle cx="12" cy="12" r="3.4"/><path d="M15.4 12v1.3a2.4 2.4 0 0 0 4.8 0V12a8.2 8.2 0 1 0-3.2 6.5"/>',games:'<rect x="2.5" y="7" width="19" height="10.5" rx="5"/><path d="M8 10.2v4.2M5.9 12.3h4.2"/><circle cx="15.5" cy="11.4" r=".9"/><circle cx="18" cy="13.4" r=".9"/>',about:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5.2M12 7.8v.1"/>',music:'<path d="M9 17.5V5.5l10-2v12"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/>',clips:'<rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10.2 9.4v5.2l4.4-2.6z"/>',trophies:'<path d="M7.5 4h9v5a4.5 4.5 0 0 1-9 0z"/><path d="M7.5 6H4.5c0 3 1.2 4.4 3.3 4.7M16.5 6h3c0 3-1.2 4.4-3.3 4.7M12 13.5V17M8.5 20h7M9.5 17h5"/>'};
 document.querySelectorAll('.menu-item').forEach(b=>{const i=b.querySelector('.bi');if(i&&P[b.dataset.panel])i.innerHTML='<svg viewBox="0 0 24 24" width="27" height="27" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+P[b.dataset.panel]+'</svg>'})})();
+/* hint de rolagem + bolha ativa centralizada */
+(()=>{const home=$('#home'),scr=$('#vscreen'),menu=document.querySelector('.menu');if(!home||!scr||!menu)return;
+const m=document.createElement('div');m.className='more';m.innerHTML='<button type="button" aria-label="rolar para baixo"><i>▾</i>mais</button>';scr.appendChild(m);
+const chk=()=>m.classList.toggle('on',!home.classList.contains('hidden')&&home.scrollHeight-home.scrollTop-home.clientHeight>28);
+home.addEventListener('scroll',chk,{passive:true});setInterval(chk,500);
+m.querySelector('button').onclick=()=>home.scrollBy({top:home.clientHeight*.7,behavior:'smooth'});
+new MutationObserver(()=>{const a=menu.querySelector('.active');if(a&&menu.scrollWidth>menu.clientWidth)menu.scrollTo({left:a.offsetLeft-(menu.clientWidth-a.offsetWidth)/2,behavior:'smooth'});home.scrollTo({top:0,behavior:'smooth'})}).observe(menu,{subtree:true,attributes:true,attributeFilter:['class']});
+})();
