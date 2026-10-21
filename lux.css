@@ -38,3 +38,17 @@ box-shadow:0 0 0 2px #fff,0 0 22px rgba(255,255,255,.95),0 10px 22px rgba(0,0,0,
 @keyframes lxP{50%{opacity:.35;transform:scale(.7)}}
 body.lite #vscreen .menu .menu-item,body.lite .gm,body.lite .gm .bar i{animation:none}
 @media (prefers-reduced-motion:reduce){#vscreen .menu .menu-item,.gm,.gm .bar i,.gm-now{animation:none!important}}
+/* v13.1 bolhas premium */
+#vscreen .menu{gap:32px 10px;margin:12px 0 30px}
+#vscreen .menu .menu-item{width:64px;height:64px;border:0;color:#2f3248!important;
+background:radial-gradient(120% 90% at 30% 10%,rgba(255,255,255,.95) 0,rgba(255,255,255,0) 46%),radial-gradient(90% 70% at 70% 108%,rgba(150,180,255,.8),rgba(255,255,255,0) 62%),radial-gradient(circle,#f8f9ff 0,#e0e4f4 70%,#c6cce4 100%)!important;
+box-shadow:0 16px 18px -8px rgba(25,30,70,.38),0 2px 4px rgba(25,30,70,.22),inset 0 0 0 1.5px rgba(255,255,255,.95),inset 0 -12px 18px rgba(150,170,235,.55),inset 0 10px 12px rgba(255,255,255,.9),inset 10px 0 14px rgba(255,255,255,.45),inset -10px 0 14px rgba(190,170,255,.3)!important}
+#vscreen .menu .menu-item::after{left:10%;top:5%;width:80%;height:46%;opacity:.95;background:linear-gradient(rgba(255,255,255,.95),rgba(255,255,255,.05))}
+#vscreen .menu .menu-item::before,#vscreen .menu .menu-item.active::before{inset:-4px;border:0;opacity:.6;background:conic-gradient(#fff,#b9ccff,#f1c6ff,#c5fff0,#fff);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1.5px));animation:lxS 7s linear infinite}
+#vscreen .menu .menu-item.active::before{inset:-7px;opacity:1;animation-duration:3s;filter:drop-shadow(0 0 6px #fff)}
+#vscreen .menu .menu-item .bi{filter:drop-shadow(0 1px 0 rgba(255,255,255,.9));display:grid;place-items:center}
+#vscreen .menu .menu-item.active{color:#fff!important;transform:translateY(-4px) scale(1.18);
+background:radial-gradient(120% 90% at 30% 8%,rgba(255,255,255,.55) 0,rgba(255,255,255,0) 44%),radial-gradient(circle at 50% 112%,#8b90b8 0,#15151d 62%)!important;
+box-shadow:0 18px 22px -8px rgba(0,0,0,.5),0 0 26px rgba(255,255,255,.9),inset 0 0 0 1.5px rgba(255,255,255,.7),inset 0 -10px 16px rgba(130,140,220,.45)!important}
+#vscreen .menu .menu-item.active .bi{filter:drop-shadow(0 0 6px rgba(255,255,255,.95))}
+@keyframes lxS{to{transform:rotate(360deg)}}
