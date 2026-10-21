@@ -84,3 +84,8 @@ document.addEventListener('visibilitychange',()=>{cancelAnimationFrame(raf);if(r
 /* dica: se ficar um tempo no perfil sem achar, uma bolinha aparece apontando a estrela */
 let n=0;if(!found)setInterval(()=>{if(found||$('#secHint'))return;const hm=$('#home'),pf=$('#profile');if(hm&&!hm.classList.contains('hidden')&&pf&&pf.classList.contains('active-panel')&&sg.hidden)n++;
 if(n>=5){const c=st.parentNode,h=document.createElement('span');h.id='secHint';h.className='sec-hint';h.textContent='psst ✧ toca na estrela';c.appendChild(h);setTimeout(()=>h.remove(),9000);n=-30}},1000)})();
+/* arrastar com o mouse não seleciona nem "arrasta" texto/imagem; só bloqueia a seleção, os eventos de ponteiro (giro do Vita) ficam intactos */
+(()=>{const inp=t=>t&&t.closest&&t.closest('input,textarea');
+document.addEventListener('selectstart',e=>{if(!inp(e.target))e.preventDefault()});
+document.addEventListener('dragstart',e=>{if(!inp(e.target))e.preventDefault()});
+document.addEventListener('pointerdown',e=>{if(!inp(e.target)&&getSelection&&getSelection().rangeCount)getSelection().removeAllRanges()},true)})();

@@ -199,3 +199,7 @@ background:linear-gradient(90deg,#fff,#dfe6ff,#fff,#dfe6ff);background-size:200%
 .sec-star:active{transform:scale(.94)}
 .sec-hint{right:12px;top:44px}
 body.lite .sec-star{animation:secBob 2.2s ease-in-out infinite}
+/* v25: arrastar pra girar o Vita não seleciona texto/imagens (inputs continuam normais) */
+html,body,#vscreen,.glam,.moodboard,.guide,.ticker{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea{-webkit-user-select:text;user-select:text}
+img,svg{-webkit-user-drag:none;user-drag:none}
