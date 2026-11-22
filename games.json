@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-21T22:43:44.208Z",
+ "updated": "2026-11-22T04:51:28.681Z",
  "total": 176,
  "now": null,
  "games": [
@@ -74,6 +74,11 @@
    "appid": 2495100,
    "name": "Hello Kitty Island Adventure",
    "hours2w": 1
+  },
+  {
+   "appid": 431960,
+   "name": "Wallpaper Engine",
+   "hours2w": 0
   }
  ]
 }
