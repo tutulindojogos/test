@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T01:29:21.460Z",
+ "updated": "2026-11-26T16:18:11.297Z",
  "total": 176,
  "now": null,
  "games": [
@@ -66,13 +66,13 @@
  ],
  "recent": [
   {
-   "appid": 1274570,
-   "name": "DEVOUR",
-   "hours2w": 1
-  },
-  {
    "appid": 578080,
    "name": "PUBG: BATTLEGROUNDS",
+   "hours2w": 3
+  },
+  {
+   "appid": 1274570,
+   "name": "DEVOUR",
    "hours2w": 1
   },
   {
