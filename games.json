@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T01:26:26.308Z",
+ "updated": "2026-11-27T16:02:45.117Z",
  "total": 176,
  "now": null,
  "games": [
@@ -66,14 +66,14 @@
  ],
  "recent": [
   {
+   "appid": 2767030,
+   "name": "Marvel Rivals",
+   "hours2w": 10
+  },
+  {
    "appid": 578080,
    "name": "PUBG: BATTLEGROUNDS",
    "hours2w": 3
-  },
-  {
-   "appid": 1274570,
-   "name": "DEVOUR",
-   "hours2w": 1
   },
   {
    "appid": 431960,
